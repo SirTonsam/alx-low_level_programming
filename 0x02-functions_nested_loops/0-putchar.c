@@ -1,10 +1,11 @@
 #include "main.h"
+
 /**
- *  main - print _putchar
- *  is wriiten by tonsam
- *  Return: 0
+ *  main - Entry point
+ *  Return: Always 0
  */
- int main(voi)
+
+ int main(void)
 {
 	_putchar('_');
 	_putchar('p');
