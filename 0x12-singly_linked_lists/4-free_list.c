@@ -1,20 +1,20 @@
-#include <stdlib.h>
 #include "lists.h"
-
 /**
- * free_list - frees a linked list
- * @head: list_t list to be freed
+ * free_list - fress linked lists
+ * @head: head of the list
+ * Return: no return
  */
 void free_list(list_t *head)
 {
- list_t *temp;
+	list_t *aux;
+	list_t *aux2;
 
- while (head)
- {
- temp = head->next;
- free(head->str);
- free(head);
- head = temp;
- }
-}
+	aux = head;
+	while (aux)
+	{
+	aux2 = aux;
+	free(aux->str);
+	free(aux);
+	aux = aux2->next;
+	}
 
