@@ -1,31 +1,14 @@
-#include <stdio.h>
 #include "main.h"
 
 /**
-* a function that prints the binary representation of a number.
-* @n: the number to print in binary
-*
-* Return: void
-*/
+ * print_binary - Prints the binary representation of a number.
+ * @n: The number to be printed in binary.
+ */
 void print_binary(unsigned long int n)
 {
-unsigned long int mask = 1;
-int bits = sizeof(unsigned long int) * 8 - 1;
-int printed = 0;
+	if (n > 1)
+		print_binary(n >> 1);
 
-	while (bits >= 0)
-{
-	if ((n >> bits) & mask)
-	{
-		_putchar('1');
-		printed = 1;
-	}
-	else if (printed)
-		_putchar('0');
-
-		bits--;
-	}
-
-	if (!printed)
-	_putchar('0');
+	_putchar((n & 1) + '0');
 }
+
