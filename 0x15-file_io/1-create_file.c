@@ -1,46 +1,34 @@
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "main.h"
 
 /**
- * a function that creates a file
- *where filename is the name of the file to create and text_content is a NULL terminated string to write to the file
- *Returns: 1 on success, -1 on failure (file can not be created, file can not be written, write “fails”, etc…)
- *The created file must have those permissions: rw-------. If the file already exists, do not change the permissions.
- *if the file already exists, truncate it
- *if filename is NULL return -1
- *if text_content is NULL create an empty file
+ * create_file - Creates a file.
+ * @filename: A pointer to the name of the file to create.
+ * @text_content: A pointer to a string to write to the file.
+ * Return: If the function fails - -1.
+ *         Otherwise - 1.
  */
 
 int create_file(const char *filename, char *text_content)
 {
-    int d, len, ret;
+		int p, w, len = 0;
 
-    if (!filename)
-        return (-1);
+		if (filename == NULL)
+			return (-1);
 
-    d = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-    if (d == -1)
-        return (-1);
+		if (text_content != NULL)
+		{
+			for (len = 0; text_content[len];)
+				len++;
+		}
 
-    if (!text_content)
-    {
-        close(d);
-        return (1);
-    }
+		p = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+		w = write(p, text_content, len);
 
-    for (len = 0; text_content[len]; len++)
-        ;
+		if (p == -1 || w == -1)
+			return (-1);
 
-    ret = write(d, text_content, len);
-    if (ret == -1 || ret != len)
-    {
-        close(d);
-        return (-1);
-    }
+		close(p);
 
-    close(d);
-    return (1);
+	return (1);
 }
+
